@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Checkout</title>
+{% endblock %}
+
+{% block main %}
+<style>
+@media(min-width: 768px) {
+  .field-label-responsive {
+    padding-top: .5rem;
+    text-align: right;
+  }
+}
+	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color: #999966;
+}
+	.td{
+		height: auto;
+	}
+
+</style>
+<br>
+<h2 style="color: #352943; text-align: center;">Your Cart</h2>
+<hr style="border-width: 5px;">
+<br>
+<form class="form-horizontal" role="form" method="POST" style="color:#1a1a00">
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="age">Order ID</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{order.0}}" readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="gender">Customer ID</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{order.2}}" readonly">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="age">Total</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{order.6}}" readonly">
+                    </div>
+                </div>
+            </div>
+        </div>        
+</form>
+<br> 
+
+<table class="table table-striped table-inverse" style="width: 80%; table-layout: fixed; text-align: center; margin-left: auto; margin-right: auto; ">
+  <tbody>
+  		<tr>
+  			<th>Name</th>
+  			<th>Type</th>
+  			<th>Rate</th>
+  			<th>Number of Units</th>
+  			<th>&nbsp</th>
+  			<th>&nbsp</th>
+
+  		</tr>
+  	{% for dish in meals %}
+	    
+	    <tr>
+	      <td>{{dish.1}}</td>
+	      <td>{{dish.2}}</td>
+	      <td>{{dish.3}}</td>
+	      <td>{{dish.4}}</td>
+	      <form action="{% url 'increment' %}" method="POST">
+	      {% csrf_token %}
+	      <td>
+	      <input type="hidden" name="dish_id" value="{{dish.0}}">
+	      <input type="hidden" name="order_id" value="{{order.0}}">
+	      <input type="hidden" name="rate" value="{{dish.3}}">
+	      <button type="submit" class="btn btn-success btn-sm" style="width: 80%;">+</button></td>
+	      </form>
+	      <form action="{% url 'decrement' %}" method="POST">
+	      {% csrf_token %}
+	      <td>
+	      <input type="hidden" name="dish_id" value="{{dish.0}}">
+	      <input type="hidden" name="order_id" value="{{order.0}}">
+	      <input type="hidden" name="rate" value="{{dish.3}}">
+	      <input type="hidden" name="nunits" value="{{dish.4}}">
+	      <button type="submit" class="btn btn-danger btn-sm" style="width: 80%;">-</button></td>
+	      </form>
+	    </tr> 
+	{% endfor %}
+  </tbody>
+</table>
+<br>
+<div class="row">
+           
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#proc"style="margin: auto; display: block;"> Proceed</button>         
+        </div>
+
+<div class="modal fade" id="proc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Proceed to Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'final' %}" method="POST">
+        {% csrf_token %}
+          <div class="form-group">
+            <label class="col-form-label">Order ID:</label>
+            <input type="text" class="form-control" readonly required name="order_id" value="{{order.0}}" ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" >Outlet:</label>
+             <select name="outlet">
+				  {% for out in outlets %}
+				  	<option>{{out}}</option>
+				  {% endfor %}	
+			 </select> 
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" >Offer:</label>
+             <select name="offer">
+             	  <option value="NONE">NONE</option>	
+				  {% for off in offers %}
+				  	<option value="{{off.0}}">{{off.0}}</option>
+				  {% endfor %}	
+			 </select> 
+          </div>
+      </div>
+      <div class="modal-footer">
+        <input type="hidden" name="total" value="{{order.6}}">
+        <button type="submit" class="btn btn-primary">Pay</button>
+        </form>
+        <form action="{% url 'refreshmodal' %}" method="GET">
+        <button type="submit" class="btn btn-secondary">Close</button>
+        </form>
+      </div>
+         
+    </div>
+  </div>
+</div>
+{% endblock %}

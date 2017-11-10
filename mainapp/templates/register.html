@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Register</title>
+{% endblock %}
+{% block main %}
+
+<style>
+@media(min-width: 768px) {
+  .field-label-responsive {
+    padding-top: .5rem;
+    text-align: right;
+  }
+}
+</style>
+<br>
+<h2 style="color: #352943; text-align: center;">Register a New User</h2>
+<hr style="border-width: 5px;">
+<br>
+
+
+    <form class="form-horizontal" role="form" method="POST" action="/create_acc/" style="color:#1a1a00">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">Name</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                       
+                        <input type="text" name="name" class="form-control" id="name"
+                               placeholder="Harshit Mehrotra" required autofocus>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="contact_no">Mobile number</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="contact_no" class="form-control" id="contact_no"
+                               placeholder="without ISD code or '0'" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">E-Mail Address</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="email" class="form-control" id="email"
+                               placeholder="you@example.com" required autofocus>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="age">Age</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="number" min="10" step="1" name="age" class="form-control" id="age"
+                               placeholder="Your age" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="gender">Gender</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <select name="gender" class="form-control" id="gender" required>
+				  			<option value="Female" selected>Female</option>
+				  			<option value="Male">Male</option>
+				  			<option value="Other">Other</option>
+			            </select> 
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="aptno">Apartment Number</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="aptno" class="form-control" id="aptno"
+                               placeholder="B-308" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="street">Street/Colony</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="street" class="form-control" id="street"
+                               placeholder="Vijay Nagar" required>
+                    </div>
+                </div>
+            </div>         
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="city">City</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="city" class="form-control" id="city"
+                               value="Varanasi" required readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="zip">Zip code</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="zip" class="form-control" id="zip"
+                               placeholder="221005" required>
+                    </div>
+                </div>
+            </div>         
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="username">User name</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" name="username" class="form-control" id="username"
+                               placeholder="your_username" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="pwd">Password</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="password" name="pwd" class="form-control" id="pwd"
+                               placeholder="password" required>
+                    </div>
+                </div>
+            </div>         
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="pwd2">Re-enter password</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="password" name="pwd2" class="form-control" id="pwd2"
+                               placeholder="password" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="priv" data-toggle="tooltip" data-placement="top" title="If you choose Yes, then show your ID card on delivery">Are you a BHU student?</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <select name="priv" class="form-control" id="priv" data-toggle="tooltip" data-placement="top" title="If you choose Yes, then show your ID card on delivery" required>
+				  			<option value="Yes">Yes</option>
+				  			<option value="No" selected="">No</option>
+			            </select> 
+                    </div>
+                </div>
+            </div>      
+        </div>
+
+        <div class="row">
+           
+                <button type="submit" class="btn btn-success" style="width: 40%; margin: auto; display: block;"> Register</button>         
+        </div>
+    </form>
+
+
+{% endblock %}

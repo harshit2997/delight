@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block head %}
+<script src= "https://www.payumoney.com/Api/REST/op/buttonScript" async="true" > </script>
+<title>Confirm Payment</title>
+<script type="text/javascript">
+function callme(){
+// window.PUM.setData(, ,"ProductInfo");
+window.PUM.setData("{{confirm.3}}", "{{confirm.0}}","ProductInfo");
+window.PUM.pay();
+};
+</script>
+{% endblock %}
+{% block main %}
+
+<br>
+<br>
+
+<style>
+@media(min-width: 768px) {
+  .field-label-responsive {
+    padding-top: .5rem;
+    text-align: right;
+  }
+}
+</style>
+<h2 style="color: #352943; text-align: center;">Confirm Payment</h2>
+<hr style="border-width: 5px;">
+<br>
+<form class="form-horizontal" role="form" method="POST" style="color:#1a1a00">
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="age">Order ID</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{confirm.0}}" readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="gender">Outlet</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{confirm.1}}" readonly">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="age">Offer ID</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{confirm.2}}" readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="gender">Final Total</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{confirm.3}}" readonly">
+                    </div>
+                </div>
+            </div>
+
+        </div>     
+</form>
+
+<span class='pm-button' id='9635B16A82196FA90FC86A88702FB2C1' style="width: 40%; margin: auto; display: block;" onclick="callme()">
+  <span class="state active">
+    <input type="image" src="https://file.payumoney.com/images/payby_payumoney/new_buttons/21.png" width="131" height="37">
+  </span>
+  <span class="state clicked" style="display:none" >
+    <input type="image" src="https://file.payumoney.com/images/payby_payumoney/new_buttons/submitted/21.png" width="131" height="37">
+  </span>
+</span>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,176 @@
+
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+      {% block head %}
+  {% endblock %}
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <style>
+    .navbar-inner {
+    min-height: 0px;
+}
+
+    .navbar-brand,
+    .navbar-nav li a {
+        line-height: 50px;
+        height: 50px;
+        padding-top: 0;
+      }
+  
+    body, html {
+    height: 100%;
+}
+    .bg {
+    /* The image used */
+   background-image: url("{% static 'mainapp/images/back.jpg' %}"); 
+   color: #2e2e1f;
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#popUpWindow{
+  background: lightblue; 
+}
+
+
+    </style>
+  </head>
+  <body>
+
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top" >
+       <a class="navbar-brand" href="{% url 'home' %}" style="margin-left: 10%;">
+    <img src="{% static 'mainapp/images/logo.png' %}" width="50" height="50" class="d-inline-block align-top" alt="">
+    SINGH'S DELIGHT
+  </a>
+  
+   <div class="collapse navbar-collapse" id="navbarNav" style="margin-right: 10%;">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link disabled" href=""> &nbsp&nbsp&nbsp&nbsp </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'home' %}">Home </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'menu' %}">Menu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'offers' %}">Offers</a>
+      </li>
+      {% if request.user.is_authenticated %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">    
+          Orders
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          {% if request.user.is_superuser or request.user.is_staff %}
+            <a class="dropdown-item" href="{% url 'checkout' %}">Bill a new order</a>
+          {% else %}
+            <a class="dropdown-item" href="{% url 'checkout' %}">Checkout</a>
+          {% endif %}
+          {% if request.user.is_superuser or request.user.is_staff %}
+            <a class="dropdown-item" href="{% url 'prev' %}">All orders</a>
+          {% else %}
+            <a class="dropdown-item" href="{% url 'prev' %}">Previous orders</a>
+          {% endif %}
+        </div>
+      </li> 
+      {% if request.user.is_superuser or request.user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'emp_det' %}">Employees</a>
+        </li>
+      {% endif %}
+      {% endif %}  
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      {% if request.user.is_authenticated %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">    
+            Hello {{ request.user.username }}
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'profile' %}">Your profile</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+          </div>
+        </li> 
+      {% else %}
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="modal" data-target="#login-modal">Sign In</a>
+        </li>
+      {% endif %}
+      </ul>
+    </div>
+      </nav>
+
+
+<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sign in to your account</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'login' %}" method='POST'>
+        {% csrf_token %}
+          <div class="form-group">
+            <label class="col-form-label">Username:</label>
+            <input type="text" class="form-control" required name="username" ></textarea>
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >Password:</label>
+            <input type="password" class="form-control" required name="pwd" >
+          </div>
+  
+      </div>
+      <div class="modal-footer">
+        <a href="{% url 'register' %}"><button type="button" class="btn btn-secondary">Register</button></a>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+      </div>
+         </form>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    
+
+    <div class="bg">
+  <div class="container" style="max-width: 80%; background-color: rgba(233,236,239,0.35); height: 100%; " >
+
+      {% if messages %}
+      <br>
+    <center>
+    <div style="max-width:550px;">
+        {% for message in messages %}
+        <div {% if message.tags == 'error' %} class="alert alert-danger" role="alert" {% else %} class="alert alert-success" {% endif %}>{{ message }}</div>
+        {% endfor %}
+    </div>
+    </center>
+    {% endif %} 
+    {% block main %}
+    {% endblock %}
+    </div>
+    </div>
+    </body>
+</html>

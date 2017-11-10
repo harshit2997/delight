@@ -1,0 +1,406 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Profile</title>
+{% endblock %}
+
+{% block main %}
+
+<br>
+
+<style>
+@media(min-width: 768px) {
+  .field-label-responsive {
+    padding-top: .5rem;
+    text-align: right;
+  }
+}
+</style>
+<br>
+<h2 style="color: #352943; text-align: center;">Your Profile</h2>
+<hr style="border-width: 5px;">
+<br>
+
+    <form class="form-horizontal" role="form" method="POST" style="color:#1a1a00">
+   
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">Username</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">                    
+                        <input type="text" class="form-control" value="{{profile.0}}" readonly">
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="name">Name</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                       
+                        <input type="text" class="form-control" value="{{profile.1}}" readonly">
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        {% if not request.user.is_staff %}
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="contact_no">Contact number</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{profile.7}}" readonly">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="contact_no">Contact number 1</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{profile.12}}" readonly">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="contact_no">Contact number 2</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{profile.13}}" readonly">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="email">E-Mail Address</label>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        {% if request.user.is_staff %}
+                        <input type="text" class="form-control" value="{{profile.11}}" readonly">
+                        {% else %}
+                        <input type="text" class="form-control" value="{{profile.10}}" readonly">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="age">Age</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{profile.2}}" readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="gender">Gender</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{profile.3}}" readonly">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="aptno">Apartment Number</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        {% if request.user.is_staff %}
+                        <input type="text" class="form-control" value="{{profile.5}}" readonly">
+                        {% else %}
+                        <input type="text" class="form-control" value="{{profile.4}}" readonly">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="street">Street/Colony</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        {% if request.user.is_staff %}
+                        <input type="text" class="form-control" value="{{profile.6}}" readonly">
+                        {% else %}
+                        <input type="text" class="form-control" value="{{profile.5}}" readonly">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>         
+
+
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="city">City</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                    	<input type="text" class="form-control" value="Varanasi" readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="zip">Zip code</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                	<div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        {% if request.user.is_staff %}
+                        <input type="text" class="form-control" value="{{profile.7}}" readonly">
+                        {% else %}
+                        <input type="text" class="form-control" value="{{profile.6}}" readonly">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>         
+
+    {% if request.user.is_staff %}
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="pwd2">Salary (monthly)</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{profile.8}}" readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="priv">Outlet</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{profile.9}}" readonly">
+                    </div>
+                </div>
+            </div>      
+        </div>
+    {% else %}
+        <div class="row">
+            <div class="col-md-3 field-label-responsive">
+                <label for="pwd2">Number of orders</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{profile.8}}" readonly">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 field-label-responsive">
+                <label for="priv" data-toggle="tooltip" data-placement="top" title="If you  have chosen Yes, then you have to show your ID card on delivery">Are you a BHU student?</label>
+            </div>
+            <div class="col-md-2">
+                <div class="form-group">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <input type="text" class="form-control" value="{{profile.9}}" readonly">
+                    </div>
+                </div>
+            </div>      
+        </div>
+    {% endif %}
+        <div class="row">
+           {% if request.user.is_staff %}
+                <button type="submit" class="btn btn-primary" style="width: 40%; margin: auto; display: block;" data-toggle="modal" data-target="#editmodal1"> Edit Details</button>   
+            {% else %}
+                <button type="submit" class="btn btn-primary" style="width: 40%; margin: auto; display: block;" data-toggle="modal" data-target="#editmodal2"> Edit Details</button>       
+            {% endif %}
+        </div>
+
+
+        <div class="modal fade" id="editmodal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'edit_profile_emp' %}" method="POST">
+                {% csrf_token %}
+
+
+          <div class="form-group">
+            <label class="col-form-label">Employee ID:</label>
+            <input type="text" class="form-control" readonly name="emp_id" value="{{profile.0}}"></textarea>
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >Name:</label>
+            <input type="text" class="form-control" required name="name" value="{{profile.1}}">
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >Age:</label>
+            <input type="number" min="10" step="1" class="form-control" required name="age" value="{{profile.2}}">
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" >Gender:</label>
+             <select name="gender" value="{{profile.3}}">
+				  <option value="male">Male</option>
+				  <option value="female">Female</option>
+          <option value="other">Other</option>
+			       </select> 
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >E-mail address:</label>
+            <input type="text" class="form-control" required name="email" value="{{profile.11}}">
+          </div> 
+          <div class="form-group">
+            <label  class="col-form-label" >Contact number 1:</label>
+            <input type="text" class="form-control" required name="contact_no1" value="{{profile.12}}">
+          </div>  
+          <div class="form-group">
+            <label  class="col-form-label" >Contact number 2:</label>
+            <input type="text" class="form-control" required name="contact_no2" value="{{profile.13}}">
+          </div>                
+          <div class="form-group">
+            <label  class="col-form-label" >Apartment number:</label>
+            <input type="text" class="form-control" required name="apt_no" value="{{profile.5}}">
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >Street:</label>
+            <input type="text"  class="form-control" required name="street" value="{{profile.6}}">
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >City:</label>
+            <input type="text" class="form-control" required readonly name="city" value="Varanasi">
+          </div> 
+    
+          <div class="form-group">
+            <label  class="col-form-label" >Zip code:</label>
+            <input type="text" class="form-control" required name="zip">
+          </div>
+
+   </div>
+      <div class="modal-footer">
+      	
+        <button type="submit" class="btn btn-primary">Make changes</button>
+        </form>
+        <form action="{% url 'refreshmodal' %}" method="GET">
+        <button type="submit" class="btn btn-secondary" >Close</button>
+        </form>
+      </div>
+         
+    </div>
+  </div>
+</div>
+        <div class="modal fade" id="editmodal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'edit_profile_cust' %}" method="POST">
+                {% csrf_token %}
+          <div class="form-group">
+            <label class="col-form-label">Customer ID:</label>
+            <input type="text" class="form-control" readonly name="cust_id" value="{{profile.0}}"></textarea>
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >Name:</label>
+            <input type="text" class="form-control" required name="name" value="{{profile.1}}">
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >Age:</label>
+            <input type="number" min="10" step="1" class="form-control" required name="age" value="{{profile.2}}">
+          </div>
+          <div class="form-group">
+            <label class="col-form-label" >Gender:</label>
+             <select name="gender" value="{{profile.3}}">
+				  <option value="male">Male</option>
+				  <option value="female">Female</option>
+          <option value="other">Other</option>
+			       </select> 
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >E-mail address:</label>
+            <input type="text" class="form-control" required name="email" value="{{profile.10}}">
+          </div> 
+          <div class="form-group">
+            <label  class="col-form-label" >Contact number:</label>
+            <input type="text" class="form-control" required name="contact_no" value="{{profile.7}}">
+          </div>          
+          <div class="form-group">
+            <label  class="col-form-label" >Apartment number:</label>
+            <input type="text" class="form-control" required name="apt_no" value="{{profile.4}}">
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >Street:</label>
+            <input type="text"  class="form-control" required name="street" value="{{profile.5}}">
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" >City:</label>
+            <input type="text" class="form-control" required readonly name="city" value="Varanasi">
+          </div> 
+    
+          <div class="form-group">
+            <label  class="col-form-label" >Zip code:</label>
+            <input type="text" class="form-control" required name="zip">
+          </div>
+          <div class="form-group">
+            <label  class="col-form-label" data-toggle="tooltip" data-placement="top" title="If you choose Yes, then show your ID card on delivery">Are you a BHU student?:</label>
+            <select name="priv" class="form-control" id="priv" data-toggle="tooltip" data-placement="top" title="If you choose Yes, then show your ID card on delivery" required>
+				  			<option value="Yes">Yes</option>
+				  			<option value="No" selected="">No</option>
+			            </select> 
+          </div>
+    </div>
+      <div class="modal-footer">
+      	
+        <button type="submit" class="btn btn-primary">Make changes</button>
+        </form>
+        <form action="{% url 'refreshmodal' %}" method="GET">
+        <button type="submit" class="btn btn-secondary" >Close</button>
+        </form>
+      </div>
+         
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Order History</title>
+{% endblock %}
+{% block main %}
+
+<br>
+<style>
+	.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+   background-color: #999966;
+}
+	.td{
+		height: auto;
+	}
+
+</style>
+<br>
+<h2 style="color: #352943; text-align: center;">Order History</h2>
+<hr style="border-width: 5px;">
+
+{% if not request.user.is_staff %}
+<table class="table table-striped table-inverse" style="width: 80%; table-layout: fixed; text-align: center; margin-left: auto; margin-right: auto; ">
+  <tbody>
+  		<tr>
+  			<th>Order ID</th>
+  			<th>Date, time</th>
+  			<th>Total</th>
+  			<th>&nbsp</th>
+  		</tr>
+  	{% for order in history %}
+	    {% if not order.5 == 1 %}
+	    <tr>
+	      <td>{{order.0}}</td>
+	      <td>{{order.1}}</td>
+	      <td>{{order.6}}</td>
+	      <td><button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#viewmodal{{order.0}}" style="width: 80%;">View Dishes</button></td>
+	    </tr>
+	    
+
+	    <div class="modal fade" id="viewmodal{{order.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">View Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      		{% for dish in meals %}
+      		{% ifequal dish.0 order.0 %}
+      		{{dish.1}}&nbsp&nbsp&nbsp&nbsp{{dish.2}}&nbsp&nbsp&nbsp&nbsp{{dish.3}}&nbsp&nbsp&nbsp&nbsp{{dish.4}}<br>
+      		{% endifequal %}
+      		{% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+     
+    </div>
+  </div>
+</div>
+ {% endif %}
+	{% endfor %}
+  </tbody>
+</table>
+
+{% else %}
+<table class="table table-striped table-inverse" style="width: 80%; table-layout: fixed; text-align: center; margin-left: auto; margin-right: auto; ">
+  <tbody>
+  		<tr>
+  			<th>Order ID</th>
+  			<th>Date, time</th>
+  			<th>Total</th>
+  			<th>Status</th>
+  			<th>&nbsp</th>
+  			<th>&nbsp</th>
+  		</tr>
+  	{% for order in history %}
+	    {% if not order.5 == 1 %}
+	    <tr>
+	      <td>{{order.0}}</td>
+	      <td>{{order.1}}</td>
+	      <td>{{order.6}}</td>
+	      <td>{{order.5}}</td>
+	      <td><button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#viewmodal{{order.0}}" style="width: 80%;">View Dishes</button></td>
+	      {% if order.5 == 2 %}
+	      <form action="{% url 'process' %}" method="POST">
+	      {% csrf_token %}
+	      <td>
+	      <input type="hidden" name="order_id" value="{{order.0}}">
+	      <button type="submit" class="btn btn-success btn-sm" style="width: 80%;">Process order</button></td>
+	      </form>
+	      {% endif %}
+	    </tr>
+
+	  <div class="modal fade" id="viewmodal{{order.0}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">View Order</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      		{% for dish in meals %}
+      		{% ifequal dish.0 order.0 %}
+      		{{dish.1}}&nbsp&nbsp&nbsp&nbsp{{dish.2}}&nbsp&nbsp&nbsp&nbsp{{dish.3}}&nbsp&nbsp&nbsp&nbsp{{dish.4}}<br>
+      		{% endifequal %}
+      		{% endfor %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+     
+    </div>
+  </div>
+</div>
+ {% endif %}
+	{% endfor %}
+  </tbody>
+</table>
+{% endif %}
+
+
+
+{% endblock %}
